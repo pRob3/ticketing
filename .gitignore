@@ -5,6 +5,9 @@ node_modules
 /.pnp
 .pnp.js
 
+# Next.js specific
+.next
+
 # testing
 /coverage
 
