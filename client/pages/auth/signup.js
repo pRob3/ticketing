@@ -1,11 +1,35 @@
+import { useState } from 'react';
+import axios from 'axios';
+
 const Signup = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState([]);
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post('/api/users/signup', {
+        email,
+        password,
+      });
+
+      console.log(response.data);
+    } catch (error) {
+      setErrors(error.response.data.errors);
+    }
+  };
+
   return (
-    <form>
+    <form onSubmit={onSubmit}>
       <h1>Sign Up</h1>
       <div className='form-group'>
         <label htmlFor='email'>Email</label>
         <input
           type='email'
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className='form-control'
           id='email'
           aria-describedby='emailHelp'
@@ -13,16 +37,29 @@ const Signup = () => {
         />
       </div>
       <div className='form-group'>
-        <label htmlFor='password'>Email</label>
+        <label htmlFor='password'>Password</label>
         <input
           type='password'
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           className='form-control'
           id='password'
           aria-describedby='passwordHelp'
-          placeholder='Enter email'
+          placeholder='Enter password'
         />
       </div>
-      <button className='btn btn-primary'>Sign Up</button>
+
+      {errors.length > 0 && (
+        <div className='mt-3 alert alert-danger'>
+          <h4>Ooops...</h4>
+          <ul className='my-0'>
+            {errors.map((err) => (
+              <li key={err.message}>{err.message}</li>
+            ))}
+          </ul>
+        </div>
+      )}
+      <button className='mt-2 btn btn-primary'>Sign Up</button>
     </form>
   );
 };
