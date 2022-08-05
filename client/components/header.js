@@ -4,7 +4,7 @@ export default ({ currentUser }) => {
   const links = [
     !currentUser && { label: 'Sign up', href: '/auth/signup' },
     !currentUser && { label: 'Sign in', href: '/auth/signin' },
-    currentUser && { label: 'Sign out', href: '/api/users/signout' },
+    currentUser && { label: 'Sign out', href: '/auth/signout' },
   ]
     .filter((linkConfig) => linkConfig)
     .map(({ label, href }) => {
