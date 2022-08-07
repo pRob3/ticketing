@@ -12,6 +12,11 @@ const stan = nats.connect('ticketing', clientId, {
 stan.on('connect', () => {
   console.log(`Listener #${clientId} connected to NATS`);
 
+  stan.on('close', () => {
+    console.log('NATS connection closed');
+    process.exit();
+  });
+
   const options = stan.subscriptionOptions().setManualAckMode(true);
 
   const subscription = stan.subscribe(
@@ -25,11 +30,15 @@ stan.on('connect', () => {
 
     if (typeof data === 'string') {
       console.log(`Received event: #${msg.getSequence()}, with data: ${data}`);
-      const event = JSON.parse(data);
-
-      // console.log(event);
     }
 
     msg.ack();
   });
 });
+
+// Interrupt the process
+process.on('SIGINT', () => stan.close());
+// Terminate the process
+process.on('SIGTERM', () => stan.close());
+// nodemon
+process.on('SIGUSR2', () => stan.close());
