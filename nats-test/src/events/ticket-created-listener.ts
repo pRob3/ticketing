@@ -11,6 +11,6 @@ export class TicketCreatedListener extends Listener {
     setTimeout(() => {
       console.log(`Finished processing ticket: ${data.id}`);
       msg.ack();
-    }, 2000);
+    }, 1000);
   }
 }
