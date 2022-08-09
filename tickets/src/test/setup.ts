@@ -8,7 +8,9 @@ declare global {
   var getAuthCookie: () => string[];
 }
 
+jest.mock('../nats-wrapper');
 let mongo: any;
+
 beforeAll(async () => {
   process.env.JWT_KEY = 'myRandomTestString';
   mongo = await MongoMemoryServer.create();
