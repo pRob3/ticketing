@@ -2,6 +2,8 @@ import mongoose from 'mongoose';
 import { OrderStatus } from '@slafhas/common';
 import { TicketDoc } from './ticket';
 
+export { OrderStatus };
+
 // An interface that describes the properties
 // that are required to create a new User
 interface OrderAttrs {
