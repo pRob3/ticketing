@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import request from 'supertest';
-import { app } from '../app';
-import { Order, OrderStatus } from '../models/order';
-import { Ticket } from '../models/ticket';
+import { app } from '../../app';
+import { Order, OrderStatus } from '../../models/order';
+import { Ticket } from '../../models/ticket';
 
 // TODO: Add Auth tests
 
