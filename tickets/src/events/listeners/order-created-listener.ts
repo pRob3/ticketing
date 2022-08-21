@@ -1,11 +1,11 @@
 import { Message } from 'node-nats-streaming';
-import { Subjects, Listener, OrderCreatedEvent } from '@slafhas/common';
-import { Ticket } from '../../models/ticket';
+import { Listener, OrderCreatedEvent, Subjects } from '@slafhas/common';
 import { queueGroupName } from './queue-group-name';
+import { Ticket } from '../../models/ticket';
 import { TicketUpdatedPublisher } from '../publishers/ticket-updated-publisher';
 
 export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
-  readonly subject = Subjects.OrderCreated;
+  subject: Subjects.OrderCreated = Subjects.OrderCreated;
   queueGroupName = queueGroupName;
 
   async onMessage(data: OrderCreatedEvent['data'], msg: Message) {
@@ -29,8 +29,8 @@ export class OrderCreatedListener extends Listener<OrderCreatedEvent> {
       price: ticket.price,
       title: ticket.title,
       userId: ticket.userId,
-      version: ticket.version,
       orderId: ticket.orderId,
+      version: ticket.version,
     });
 
     // acknowledge the message
