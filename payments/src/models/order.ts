@@ -1,19 +1,19 @@
 import mongoose from 'mongoose';
 import { updateIfCurrentPlugin } from 'mongoose-update-if-current';
-import { OrderStatus } from '@slafhas/common';
+import { OrderStatus } from '@cygnetops/common';
 
 interface OrderAttrs {
   id: string;
   version: number;
-  price: number;
   userId: string;
+  price: number;
   status: OrderStatus;
 }
 
 interface OrderDoc extends mongoose.Document {
   version: number;
-  price: number;
   userId: string;
+  price: number;
   status: OrderStatus;
 }
 
@@ -23,16 +23,12 @@ interface OrderModel extends mongoose.Model<OrderDoc> {
 
 const orderSchema = new mongoose.Schema(
   {
-    version: {
-      type: Number,
+    userId: {
+      type: String,
       required: true,
     },
     price: {
       type: Number,
-      required: true,
-    },
-    userId: {
-      type: String,
       required: true,
     },
     status: {
@@ -64,3 +60,5 @@ orderSchema.statics.build = (attrs: OrderAttrs) => {
 };
 
 const Order = mongoose.model<OrderDoc, OrderModel>('Order', orderSchema);
+
+export { Order };
