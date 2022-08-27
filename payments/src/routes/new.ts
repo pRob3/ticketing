@@ -9,6 +9,7 @@ import {
   OrderStatus,
 } from '@slafhas/common';
 import { Order } from '../models/order';
+import { stripe } from '../stripe';
 
 const router = express.Router();
 
@@ -33,6 +34,11 @@ router.post(
     }
 
     // Stripe payment
+    const charge = await stripe.charges.create({
+      currency: 'sek',
+      amount: order.price * 100,
+      source: token,
+    });
 
     res.send({ success: true });
   }
