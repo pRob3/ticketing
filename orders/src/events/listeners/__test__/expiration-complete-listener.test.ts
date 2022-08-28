@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { Message } from 'node-nats-streaming';
 import { OrderStatus, ExpirationCompleteEvent } from '@slafhas/common';
-import { ExpirationCompleteListener } from '../expiration-complete-listeners';
+import { ExpirationCompleteListener } from '../expiration-complete-listener';
 import { natsWrapper } from '../../../nats-wrapper';
 import { Order } from '../../../models/order';
 import { Ticket } from '../../../models/ticket';
